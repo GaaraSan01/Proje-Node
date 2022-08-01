@@ -8,8 +8,8 @@ function getUsers(){
         console.error(err)
     });
 }
-function getUser(){
-    fetch(`${url}/1`)
+function getUser(id){
+    fetch(`${url}/${id}`)
     .then((result) => result.json())
     .then(data => {
         userName.textContent = data.name
@@ -31,6 +31,29 @@ function addUser(newUser){
     .then(data => alertApi.textContent = data)
     .catch(error => console.error(error))
 }
+function updateUser(updatedUser, id){
+    fetch(`${url}/${id}`, {
+        method: "PUT",
+        body:JSON.stringify(updatedUser),
+        headers: {
+            "Content-type": "application/json;charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(data => alertApi.textContent = data)
+    .catch(error => console.error(error))
+}
+function deleteUser(id){
+    fetch(`${url}/${id}`, {
+        method: "DELETE",
+        headers:{
+            "Content-type":"application/json;charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(data => alertApi.textContent = data)
+    .catch(error => console.error(error))
+}
 
 
 const newUser = {
@@ -38,8 +61,15 @@ const newUser = {
     avatar:"https://avatars.githubusercontent.com/u/91447833?v=4",
     city: "Curitiba"
 }
+const updatedUser = {
+    name:"Sofia",
+    avatar:"https://avatars.githubusercontent.com/u/91447833?v=4",
+    city:"curitiba"
+}
+//updateUser(updatedUser, 4)
 //addUser(newUser)
 
-getUser()
+getUser(3)
 getUsers()
+deleteUser(19)
 
